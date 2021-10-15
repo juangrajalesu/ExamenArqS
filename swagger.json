@@ -1,0 +1,121 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Parcial final de arquitectura de SW",
+    "version": "1.0.0",
+    "title": "Estudiantes"
+  },
+  "schemes": ["http"],
+  "paths": {
+    "/estudiante/{cedula}": {
+      "get": {
+        "tags": ["estudiante"],
+        "summary": "Obtiene las notas de un estudiante por medio de la cedula",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept-version",
+            "type": "string",
+            "required": true,
+            "description": "Por ejemplo v1"
+          },
+          {
+            "in": "path",
+            "name": "cedula",
+            "type": "string",
+            "required": true,
+            "description": "Cedula del estudiante"
+          }
+        ]
+      }
+    },
+    "/estudiante": {
+      "post": {
+        "tags": ["estudiante"],
+        "summary": "Ingresa notas por materia de un estudiante por medio de la cedula",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept-version",
+            "type": "string",
+            "required": true,
+            "description": "Por ejemplo v1"
+          },
+          {
+            "in": "body",
+            "name": "estudiante materia y notas",
+            "description": "Los datos del estudiante para modificar",
+            "schema": {
+              "type": "object",
+              "required": ["cedula", "materia", "notas"],
+              "properties": {
+                "cedula": {
+                  "type": "string"
+                },
+                "materia": {
+                  "type": "string"
+                },
+                "notas": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "estudiante": {
+      "required": ["_id", "nombre", "apellido", "cedula", "tip"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "apellido": {
+          "type": "string"
+        },
+        "cedula": {
+          "type": "string"
+        },
+        "tip": {
+          "type": "string"
+        },
+        "materias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "nombre": {
+                "type": "string"
+              },
+              "notas": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
